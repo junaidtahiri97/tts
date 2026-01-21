@@ -1,7 +1,5 @@
-FROM coqui/tts:latest
+FROM ghcr.io/coqui-ai/tts-cpu:latest
 
-# Expose HTTP server port
 EXPOSE 5002
 
-# Run TTS HTTP server
-CMD ["--http"]
+CMD ["tts-server", "--model_name", "tts_models/en/vctk/vits", "--host", "0.0.0.0", "--port", "5002"]
