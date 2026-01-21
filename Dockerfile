@@ -1,8 +1,14 @@
+FROM python:3.11-slim
 
-FROM ghcr.io/coqui-ai/tts-cpu:latest
+# Install Coqui TTS
+RUN pip install TTS[all]
 
-# Expose port for the HTTP server
+# Copy server script
+COPY server.py /app/server.py
+WORKDIR /app
+
+# Expose the port
 EXPOSE 5002
 
-# Run Coqui TTS in HTTP server mode with a default model
-CMD ["tts", "--model_name", "tts_models/en/vctk/vits", "--http", "--host", "0.0.0.0", "--port", "5002"]
+# Start the Flask server
+CMD ["python", "server.py"]
